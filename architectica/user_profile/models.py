@@ -29,5 +29,16 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self,  *args, **kwargs):
+        if self.image:
+          img= Image.open(self.image)
+          output = BytesIO()
+          img = img.resize((100, 100))
+          img.save(output, format='PNG', quality=100)
+          output.seek(0)
+          self.image = InMemoryUploadedFile(output, 'ImageField', ".png" , 'image/png',
+                                        sys.getsizeof(output), None)
+        super(Profile, self).save()    
     class Meta:
         managed = True

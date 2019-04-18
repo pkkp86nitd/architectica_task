@@ -29,7 +29,7 @@
                 <div class="card direct" id="dashboard" style="padding:2%;" ><span><a href="#">Dashboard</a> <i class="fa fa-chevron-circle-right logo"></i></span> </div>
                 <div class="card direct" id="reviews" style="padding:2%;" ><span><a href="#">Review</a> <i class="fa fa-chevron-circle-right logo "></i></span> </div>
                 <div class="card direct" id="wishlist" style="padding:2%;" ><span><a href="#">wishlist</a> <i class="fa fa-chevron-circle-right logo "></i></span> </div>
-                <div class="card direct" id="settings" style="padding:2%;" ><span><a href="#">Settings</a> <i class="fa fa-chevron-circle-right logo "></i></span> </div>
+                <div class="card direct" id="settings" set_id="{{profile.id}}" style="padding:2%;" ><span><a href="#">Settings</a> <i class="fa fa-chevron-circle-right logo "></i></span> </div>
             </div>
             
             
@@ -68,9 +68,15 @@ $(".direct").click(function(event)
 {
   event.preventDefault();
   var id=$(this).attr("id");
+  var URL="/user_profile/"+id;
+  if (id == "settings")
+  {
+    var set_id=$(this).attr("set_id");
+     URL ="/user_profile/"+id+"/"+set_id;
+  }
   $.ajax({
         method: "GET",
-        url:"/user_profile/"+id,
+        url:URL,
         success: function(data)
                 {
                     console.log(data)

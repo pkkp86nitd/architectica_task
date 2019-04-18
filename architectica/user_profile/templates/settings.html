@@ -1,1 +1,68 @@
 <div><h3>Settings</h3></div>
+
+{% load widget_tweaks %}
+
+<body>
+  <center><h3>Edit Profile</h3></center>
+  <div class="container">
+    <center>
+    <div class="jumbotron shadow-sm p-3 mb-5 bg-white rounded" style="margin: 2%; max-width: 600px;">
+    <center>
+        <form class="my-ajax-form"method="POST" enctype="multipart/form-data">{% csrf_token%}
+          <table style="margin: 6%">
+              <div class="row">
+                <div class="col-3 mt-4">
+                 Name:
+               </div>
+                <div class="col-9">{% render_field form.name class="form-control mt-4" style="background:white;" placeholder="Enter Name" %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3 mt-4">
+                 country:
+               </div>
+                <div class="col-9">{% render_field form.country class="form-control mt-4" style="background:white;" placeholder="Name Of country" %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3 mt-4">
+                 occupation
+               </div>
+                <div class="col-9">{% render_field form.occupation class="form-control mt-4" style="background:white;" placeholder="occupation" %}
+                </div>
+              </div>
+              <hr>
+              <div>
+                {% render_field form.image class="form-control mt-4" style="background:white;" placeholder="Select An Image To Upload" %}
+              </div>
+            <hr>
+          </table>
+              
+          <button type="submit" class="save btn btn-success">Submit</button>
+        </form>
+  
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("form.my-ajax-form").submit(function(task){
+            task.preventDefault()
+        var $formData = $(this).serialize()
+        console.log("form  "+$formData)
+            $.ajax({
+        method: "POST",
+        url:"/user_profile/settings/1",
+        data:$formData ,
+        success: function (data)
+        {
+            console.log("success")
+            location.reload()
+        },
+        error:function(data)
+        {
+            console.log("error")
+        },
+     })
+            }) 
+    })
+    </script>
