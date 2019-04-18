@@ -1,0 +1,89 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+        <center><h4>{{ profile.name }}'s Profile</h4></center>
+        <div class="container-fluid" style="padding: 30px">     
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="jumbotron container shadow-sm p-3 mb-1 bg-white rounded" style="background: white;">
+             {% if profile.image %}
+                 <center><img src="{{ profile.image.url }}" alt="Profile Picture" height="100px" width="100px" style="border-radius: 100px;"></center>
+             {% endif %}
+             <div style="text-align: center;">
+             <h3>{{ profile.name }}</h3>
+             <h5><small class="text-muted">@{{ profile.name }}</small></h5>
+             </div>
+             <hr>
+             <div ><hr><span ><strong>promo code <center>  11</center></strong></span>
+                  <hr><span  ><strong>credits  <center>  10</center></span></strong></div><hr>
+             <ul>
+
+                 <li><i class="	fas fa-flag"></i>  {{ profile.country }}</li>
+                 <li><i class="fa fa-user-circle"></i> {{ profile.occupation }}</li>
+                 <li><i class="fas fa-clock"></i> {{ profile.created_at }}</li>
+                 
+             </ul>
+             <div class="card-header" style="background: white">
+                <div class="card direct" id="dashboard" style="padding:2%;" ><span><a href="#">Dashboard</a> <i class="fa fa-chevron-circle-right logo"></i></span> </div>
+                <div class="card direct" id="reviews" style="padding:2%;" ><span><a href="#">Review</a> <i class="fa fa-chevron-circle-right logo "></i></span> </div>
+                <div class="card direct" id="wishlist" style="padding:2%;" ><span><a href="#">wishlist</a> <i class="fa fa-chevron-circle-right logo "></i></span> </div>
+                <div class="card direct" id="settings" style="padding:2%;" ><span><a href="#">Settings</a> <i class="fa fa-chevron-circle-right logo "></i></span> </div>
+            </div>
+            
+            
+            </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12">
+            <div class="jumbotron shadow-sm p-3 mb-1 bg-white rounded"  style="background: white">
+                <div class="card-header feed" style="background: white">
+                  Recent Activity
+                </div>
+             <div class="card-body">
+           
+            </div>
+            </div>
+            </div>
+         </div>
+         </div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+$(".direct").find("i").hide();
+
+$(".direct").hover(function(){
+  $(this).css("background-color", "orange");
+  $(this).find('i').show();
+
+  }, function(){
+  $(this).css("background-color", "white");
+  $(this).find('i').hide();
+  
+});
+$(".direct").click(function(event)
+{
+  event.preventDefault();
+  var id=$(this).attr("id");
+  $.ajax({
+        method: "GET",
+        url:"/user_profile/"+id,
+        success: function(data)
+                {
+                    console.log(data)
+                   $(".feed").html(data);
+                },
+        error: handleFormError,
+})})
+function handleFormError(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR)
+            console.log(textStatus)
+            console.log(errorThrown)
+        }
+
+})
+</script>
+{% endblock %}              

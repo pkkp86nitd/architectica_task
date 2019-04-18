@@ -1,0 +1,16 @@
+<div><h3>Dashboard</h3></div>
+{% for j in "123456789"%}
+<div class="card-group">
+        {% for i in "1234"%}
+            <div class="card">
+              <img class="card-img-top" src="https://picsum.photos/200/300/?random{{i}}{{j}}" alt="img">
+              <div class="card-body">
+                    <h10 class="card-title"> title</h10>
+                    <p class="card-text">Some quick example .</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>  
+      {% endfor %}
+    </div> 
+    {% endfor %}
